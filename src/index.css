@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #140e0a;
+  --color-bg-alt: #211812;
+  --color-card: #2d221a;
+  --color-border: #4b3b30;
+  --color-text: #f8f2ed;
+  --color-muted: #ae9e93;
+  --color-accent: #f68d31;
+  --color-accent-2: #e26132;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Accessible focus states (keyboard navigation) ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Scroll reveal (Reveal.jsx) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Hero entrance ---------- */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-in {
+  animation: hero-in 0.8s ease both;
+}
+.hero-in-delay-1 {
+  animation: hero-in 0.8s ease both;
+  animation-delay: 0.12s;
+}
+.hero-in-delay-2 {
+  animation: hero-in 0.8s ease both;
+  animation-delay: 0.24s;
+}
+
+/* ---------- Avatar ambient glow ---------- */
+@keyframes avatar-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.06);
+  }
+}
+.avatar-glow {
+  animation: avatar-pulse 3.5s ease-in-out infinite;
+}
+
+/* ---------- Magnetic elements (Magnetic.jsx) ---------- */
+.magnetic {
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+/* ---------- Spotlight / shine cards (SpotlightCard.jsx) ---------- */
+.shine-card {
+  position: relative;
+  isolation: isolate;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+}
+.shine-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--color-accent) 16%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.shine-card:hover {
+  box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.6),
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 22%, transparent);
+}
+.shine-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Button shine sweep ---------- */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+}
+.btn-shine:hover::after {
+  left: 130%;
+}
+
+/* ---------- Button glow ---------- */
+.btn-glow {
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color-accent) 60%, transparent);
+}
+
+/* ---------- Touch-device fallbacks ----------
+   Hover effects (spotlight, shine sweep, magnetic pull) don't fire on
+   touch devices. Give cards a permanent soft accent tint so they still
+   read as "alive", and trigger the shine/shadow on tap instead of hover. */
+@media (hover: none) and (pointer: coarse) {
+  .shine-card {
+    border-color: color-mix(in srgb, var(--color-accent) 22%, var(--color-border));
+  }
+  .shine-card:active {
+    box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.6),
+      0 0 0 1px color-mix(in srgb, var(--color-accent) 30%, transparent);
+    transform: scale(0.98);
+  }
+  .btn-shine:active::after {
+    left: 130%;
+  }
+}
+
+/* ---------- Scroll cue ---------- */
+@keyframes scroll-cue-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+.scroll-cue {
+  animation: scroll-cue-bounce 2.2s ease-in-out infinite;
+}
+
+/* ---------- Nav link underline ---------- */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ---------- Respect reduced-motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .hero-in,
+  .hero-in-delay-1,
+  .hero-in-delay-2,
+  .magnetic,
+  .avatar-glow,
+  .scroll-cue,
+  .btn-shine::after,
+  .nav-link::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

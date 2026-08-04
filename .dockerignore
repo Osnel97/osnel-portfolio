@@ -1,0 +1,6 @@
+node_modules
+dist
+dist_v2
+dist_v3
+.git
+.env
