@@ -1,0 +1,4 @@
+Contact: mailto:nellysjonathan12@gmail.com
+Expires: 2027-08-04T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://osnel97.github.io/osnel-portfolio/.well-known/security.txt

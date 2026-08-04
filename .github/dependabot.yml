@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # Keep npm dependencies patched — catches vulnerable packages like the
+  # orphaned react-router-dom that was sitting in package-lock.json unused.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+
+  # Keep the GitHub Actions themselves (checkout, setup-node, deploy-pages,
+  # etc.) patched too — a compromised action is a supply-chain risk to the
+  # deploy pipeline itself.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "security"

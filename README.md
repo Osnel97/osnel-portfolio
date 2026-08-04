@@ -120,3 +120,11 @@ build step, no server, no cost.
 
 If you ever rename the repo, update the `base` path in `vite.config.js`
 to match (`/<new-repo-name>/`).
+
+## Security
+
+See [`SECURITY.md`](./SECURITY.md) for a category-by-category OWASP
+Top 10:2025 assessment of this site, what's been hardened (CSP,
+dependency supply chain, least-privilege CI permissions), and what's
+a platform limitation of static GitHub Pages hosting rather than
+something fixable here.
