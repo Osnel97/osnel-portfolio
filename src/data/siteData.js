@@ -98,7 +98,7 @@ const siteData = {
   contact: {
     email: "nellysjonathan12@gmail.com",
     whatsappNumber: "0713766237",
-    whatsappCountryCode: "263",
+    whatsappCountryCode: "255",
     // Shown as a small status line above the contact cards. Set to "" to hide it.
     availability: "Open to technical collaboration, mentoring, and knowledge-sharing",
   },

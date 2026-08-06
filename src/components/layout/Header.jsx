@@ -49,7 +49,7 @@ export default function Header() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-border text-text transition-colors hover:border-accent md:hidden"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-border text-text transition-colors hover:border-accent md:hidden"
         >
           {open ? (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

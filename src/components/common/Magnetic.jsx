@@ -9,6 +9,10 @@ export default function Magnetic({ children, strength = 14, className = '' }) {
   const ref = useRef(null);
 
   const handleMouseMove = (e) => {
+    // Respect prefers-reduced-motion: skip the cursor-follow drift entirely
+    // instead of just cutting the CSS transition (which would still leave
+    // an instant, disorienting snap on every mousemove).
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
