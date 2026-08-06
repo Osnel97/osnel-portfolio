@@ -26,7 +26,7 @@ export default function Hero() {
           </div>
           <p className="hero-in mb-6 max-w-[560px] text-muted">{siteData.tagline}</p>
 
-          {siteData.socialLinks?.length > 0 && (
+          {siteData.socialLinks?.some((link) => link.url && link.url !== '#') && (
             <div className="hero-in mb-7">
               <SocialLinks links={siteData.socialLinks} />
             </div>
