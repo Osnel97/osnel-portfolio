@@ -21,7 +21,7 @@ export default function ProjectCard({ name, description, highlights, stack }) {
         {stack.map((tech) => (
           <span
             key={tech}
-            className="rounded-md bg-accent-2/10 px-2.5 py-1 text-xs text-accent-2"
+            className="rounded-md bg-accent-2/10 px-2.5 py-1 text-xs text-accent"
           >
             {tech}
           </span>

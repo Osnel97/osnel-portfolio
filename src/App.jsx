@@ -11,14 +11,19 @@ import Contact from './components/Contact/Contact';
 function App() {
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <Header />
-      <Hero />
-      <About />
-      <Skills />
-      <Work />
-      <Experience />
-      <Testimonials />
-      <Contact />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <Skills />
+        <Work />
+        <Experience />
+        <Testimonials />
+        <Contact />
+      </main>
       <Footer />
     </>
   );

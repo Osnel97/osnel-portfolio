@@ -23,6 +23,27 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ---------- Skip-to-content link (WCAG 2.4.1) ----------
+   Hidden off-screen until keyboard-focused, so it doesn't clutter the
+   visual design for mouse/touch users but gives keyboard users a way to
+   bypass the nav and jump straight to main content. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 8px 8px;
+  background: var(--color-accent);
+  color: #150e09;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 /* ---------- Accessible focus states (keyboard navigation) ---------- */
 :focus-visible {
   outline: 2px solid var(--color-accent);

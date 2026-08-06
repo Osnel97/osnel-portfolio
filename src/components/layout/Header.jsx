@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import siteData from '../../data/siteData';
 
 const NAV_LINKS = [
@@ -11,6 +11,17 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+
+  // Nielsen "user control and freedom" — Esc is the expected way to back
+  // out of an open menu without hunting for the toggle button again.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/85 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.7)] backdrop-blur">
@@ -54,6 +65,7 @@ export default function Header() {
 
       <div
         id="mobile-menu"
+        inert={!open}
         className={`overflow-hidden border-t border-border bg-bg/95 backdrop-blur transition-[max-height] duration-300 ease-out md:hidden ${
           open ? 'max-h-96' : 'max-h-0 border-t-0'
         }`}
