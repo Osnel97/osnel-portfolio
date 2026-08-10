@@ -5,7 +5,7 @@
  * tag is passed via `as` (defaults to "div") so it can wrap both <div>
  * cards and <a> cards.
  */
-export default function SpotlightCard({ as: Tag = 'div', tiltStrength = 6, children, className = '', ...rest }) {
+export default function SpotlightCard({ as: Tag = 'div', tiltStrength = 11, children, className = '', ...rest }) {
   const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const handleMouseMove = (e) => {

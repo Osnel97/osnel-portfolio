@@ -8,7 +8,7 @@ import { useRef } from 'react';
  * rather than flat drifting labels. Pure CSS-transform based — no
  * animation library needed.
  */
-export default function Magnetic({ children, strength = 14, tiltStrength = 10, className = '' }) {
+export default function Magnetic({ children, strength = 22, tiltStrength = 18, className = '' }) {
   const ref = useRef(null);
 
   const handleMouseMove = (e) => {

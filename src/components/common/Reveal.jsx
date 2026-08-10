@@ -21,16 +21,17 @@ export default function Reveal({ children, className = '' }) {
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.fromTo(
           el,
-          { autoAlpha: 0, y: 70, rotateX: -10, transformPerspective: 1000, transformOrigin: '50% 100%' },
+          { autoAlpha: 0, y: 130, scale: 0.92, rotateX: -18, transformPerspective: 1000, transformOrigin: '50% 100%' },
           {
             autoAlpha: 1,
             y: 0,
+            scale: 1,
             rotateX: 0,
             ease: 'none',
             scrollTrigger: {
               trigger: el,
-              start: 'top 90%',
-              end: 'top 50%',
+              start: 'top 95%',
+              end: 'top 40%',
               scrub: 0.6,
             },
           }

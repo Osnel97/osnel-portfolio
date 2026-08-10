@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import siteData from '../../data/siteData';
 import Avatar from './Avatar';
+import HeroCanvas from './HeroCanvas';
 import SocialLinks from '../SocialLinks/SocialLinks';
 import Magnetic from '../common/Magnetic';
 import { gsap } from '../../lib/gsap';
@@ -62,20 +63,23 @@ export default function Hero() {
         if (socialRef.current) tl.to(socialRef.current, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.82);
         tl.to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.88);
 
-        // Cinematic exit — as the hero scrolls out of view it pulls back
-        // and dissolves, like a camera racking focus to the next shot,
-        // instead of just abruptly disappearing under the next section.
+        // Cinematic exit — the hero pins in place for an extra beat of
+        // scroll while it pulls back and dissolves, like a camera racking
+        // focus and holding before cutting to the next shot, rather than
+        // just scrolling past like every other section.
         gsap.to(contentRef.current, {
-          scale: 0.92,
-          y: -50,
-          autoAlpha: 0.2,
-          filter: 'blur(6px)',
+          scale: 0.76,
+          y: -130,
+          autoAlpha: 0.05,
+          filter: 'blur(14px)',
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top top',
-            end: 'bottom top',
-            scrub: 0.6,
+            end: '+=100%',
+            scrub: 0.8,
+            pin: true,
+            pinSpacing: true,
           },
         });
       });
@@ -101,6 +105,7 @@ export default function Hero() {
       onMouseLeave={handleMouseLeave}
       className="relative flex min-h-[80svh] flex-col justify-center border-b border-border"
     >
+      <HeroCanvas />
       <div
         ref={contentRef}
         className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-8 px-5 sm:gap-10 sm:px-6"
