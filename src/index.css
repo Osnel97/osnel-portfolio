@@ -51,41 +51,11 @@ body {
   border-radius: 4px;
 }
 
-/* ---------- Scroll reveal (Reveal.jsx) ----------
-   Sections tilt up out of the page instead of just sliding/fading in —
-   the perspective + rotateX gives it a 3D "settling into place" feel. */
-.reveal {
-  opacity: 0;
-  transform: perspective(1000px) translateY(28px) rotateX(-8deg);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal-visible {
-  opacity: 1;
-  transform: perspective(1000px) translateY(0) rotateX(0deg);
-}
-
-/* ---------- Hero entrance ---------- */
-@keyframes hero-in {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.hero-in {
-  animation: hero-in 0.8s ease both;
-}
-.hero-in-delay-1 {
-  animation: hero-in 0.8s ease both;
-  animation-delay: 0.12s;
-}
-.hero-in-delay-2 {
-  animation: hero-in 0.8s ease both;
-  animation-delay: 0.24s;
-}
+/* Scroll reveals (Reveal.jsx) and the Hero entrance/exit are now driven
+   entirely by GSAP + ScrollTrigger (see src/lib/gsap.js, Reveal.jsx,
+   Hero.jsx) for real scroll-scrubbed motion instead of fixed-duration CSS
+   animations — GSAP sets the relevant inline styles directly, including
+   the prefers-reduced-motion fallback via gsap.matchMedia. */
 
 /* ---------- Avatar ambient glow ----------
    Uses the standalone `scale` property (not `transform`) so this keyframe
@@ -235,10 +205,6 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .reveal,
-  .hero-in,
-  .hero-in-delay-1,
-  .hero-in-delay-2,
   .magnetic,
   .avatar-glow,
   .scroll-cue,
@@ -248,10 +214,6 @@ body {
   .logo-tilt {
     animation: none !important;
     transition: none !important;
-  }
-  .reveal {
-    opacity: 1;
-    transform: none;
   }
   .logo-tilt:hover,
   .logo-tilt:focus-visible {
