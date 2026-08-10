@@ -51,6 +51,9 @@ Drop this file into `public/assets/`:
 src/
   data/
     siteData.js          <- all editable content lives here
+  lib/
+    gsap.js          <- registers the ScrollTrigger plugin once, shared everywhere
+    resolveAssetPath.js
   components/
     common/
       Reveal.jsx, Magnetic.jsx, SpotlightCard.jsx  <- shared interaction helpers
@@ -88,6 +91,20 @@ Google Fonts at runtime — same-origin, no third-party font CDN call, no CSP
 changes needed. Only the weight axis is included (no italics), and only the
 Latin subset actually downloads for English content; the other language
 subsets in the CSS just sit unused.
+
+## Motion
+
+Scroll-triggered animation runs on [GSAP](https://gsap.com) + ScrollTrigger
+(`src/lib/gsap.js` registers the plugin once). `Reveal.jsx` scrubs each
+section's entrance directly to scroll position — scroll down and it plays,
+scroll back up and it reverses — rather than a fixed-duration animation that
+just triggers once. The Hero runs a one-time GSAP timeline on load (a
+staggered, masked title reveal) and a separate scroll-scrubbed exit as it
+scrolls out of view. Card tilt/hover effects (`SpotlightCard.jsx`,
+`Magnetic.jsx`) stay plain CSS transforms — no GSAP needed there. Everything
+motion-related checks `prefers-reduced-motion` (via `gsap.matchMedia()` for
+the GSAP-driven pieces, `window.matchMedia()` inline for the rest) and skips
+straight to the final state for anyone who's asked for reduced motion.
 
 ## Deploying
 

@@ -39,12 +39,16 @@ ignore.
 found `react-router-dom` sitting in `package-lock.json` with a known
 high-severity CVE — a leftover from an earlier version of this project,
 unused by any current code but still present in the dependency tree.
-Removed. Runtime dependencies are now down to two packages (`react`,
-`react-dom`), zero third-party CDN scripts are loaded at runtime (so
-there's nothing that needs Subresource Integrity), and Dependabot is
-configured for both `npm` and the GitHub Actions used in the deploy
-pipeline, so new CVEs get flagged automatically going forward instead of
-found by accident.
+Removed. Runtime dependencies are `react`, `react-dom`, `gsap` (scroll-
+driven motion — a long-established, widely-audited animation library,
+no build step or transitive dependencies of its own), and
+`@fontsource-variable/inter` (self-hosted font files, also zero
+transitive dependencies). Zero third-party CDN scripts or fonts are
+loaded at runtime (so there's nothing that needs Subresource
+Integrity — the font is bundled the same way any other static asset
+is), and Dependabot is configured for both `npm` and the GitHub
+Actions used in the deploy pipeline, so new CVEs get flagged
+automatically going forward instead of found by accident.
 
 **A04:2025 – Cryptographic Failures.** Mostly not applicable — no
 passwords, no sensitive data at rest, nothing transmitted beyond the
