@@ -21,18 +21,16 @@ const ICONS = {
 
 /** Renders a row of icon links for whatever socials are configured in
  *  site content. Falls back to a generic globe icon for unknown platforms.
- *  Entries still pointing at the "#" placeholder (see siteData.js) are
- *  skipped rather than rendered as dead links — a live link that goes
- *  nowhere is a worse trust signal than the icon not being there yet. */
+ *  Placeholder "#" URLs are shown too (visible now, wired up once real
+ *  profile links are added to siteData.js) rather than hidden. */
 export default function SocialLinks({ links, size = 'md' }) {
-  const validLinks = (links || []).filter((link) => link.url && link.url !== '#');
-  if (validLinks.length === 0) return null;
+  if (!links || links.length === 0) return null;
 
   const dimension = size === 'sm' ? 'h-9 w-9' : 'h-11 w-11';
 
   return (
     <div className="flex flex-wrap items-center gap-2.5">
-      {validLinks.map((link) => {
+      {links.map((link) => {
         const Icon = ICONS[link.platform?.toLowerCase()] || GlobeIcon;
         return (
           <Magnetic key={link.platform + link.url} strength={10}>
