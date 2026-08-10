@@ -183,6 +183,19 @@ body {
   transform: perspective(300px) rotateX(10deg) rotateY(-8deg);
 }
 
+/* ---------- Typewriter cursor (Typewriter.jsx) ---------- */
+@keyframes typewriter-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--color-accent);
+  animation: typewriter-blink 0.9s step-end infinite;
+}
+
 /* ---------- Nav link underline ---------- */
 .nav-link {
   position: relative;
@@ -213,7 +226,8 @@ body {
   .btn-shine::after,
   .nav-link::after,
   .shine-card,
-  .logo-tilt {
+  .logo-tilt,
+  .typewriter-cursor {
     animation: none !important;
     transition: none !important;
   }

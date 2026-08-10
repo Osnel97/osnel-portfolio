@@ -3,6 +3,7 @@ import siteData from '../../data/siteData';
 import Avatar from './Avatar';
 import SocialLinks from '../SocialLinks/SocialLinks';
 import Magnetic from '../common/Magnetic';
+import Typewriter from '../common/Typewriter';
 import { gsap } from '../../lib/gsap';
 
 export default function Hero() {
@@ -133,7 +134,7 @@ export default function Hero() {
             ))}
           </h1>
           <div ref={roleRef} className="mb-5 text-lg text-muted sm:text-xl">
-            {siteData.title}
+            <Typewriter text={siteData.title} delay={700} />
           </div>
           <p ref={taglineRef} className="mb-6 max-w-[560px] text-muted">
             {siteData.tagline}
