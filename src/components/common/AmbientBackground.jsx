@@ -59,10 +59,10 @@ export default function AmbientBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
       <div ref={scrollWrap1} className="absolute left-[8%] top-[10%]">
-        <div ref={orb1} className="h-[380px] w-[380px] rounded-full bg-accent/10 blur-[110px]" />
+        <div ref={orb1} className="h-[160px] w-[160px] rounded-full bg-accent/10 blur-[60px] sm:h-[380px] sm:w-[380px] sm:blur-[110px]" />
       </div>
       <div ref={scrollWrap2} className="absolute right-[6%] top-[50%]">
-        <div ref={orb2} className="h-[320px] w-[320px] rounded-full bg-accent-2/10 blur-[110px]" />
+        <div ref={orb2} className="h-[140px] w-[140px] rounded-full bg-accent-2/10 blur-[50px] sm:h-[320px] sm:w-[320px] sm:blur-[110px]" />
       </div>
     </div>
   );
