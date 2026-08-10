@@ -7,10 +7,16 @@ import Work from './components/Work/Work';
 import Experience from './components/Experience/Experience';
 import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './components/Contact/Contact';
+import AmbientBackground from './components/common/AmbientBackground';
+import ScrollProgress from './components/common/ScrollProgress';
 
 function App() {
   return (
     <>
+      {/* Mounted first so it paints behind everything else purely by DOM
+          order — no negative z-index needed. */}
+      <AmbientBackground />
+      <ScrollProgress />
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
