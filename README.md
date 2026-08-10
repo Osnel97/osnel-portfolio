@@ -82,6 +82,13 @@ Tailwind's `@theme` block, then used as normal utility classes everywhere
 (`bg-card`, `text-accent`, `border-border`, etc.). Change a color in one place
 and it updates across the whole site.
 
+Body text uses [Inter Variable](https://rsms.me/inter/), self-hosted via
+`@fontsource-variable/inter` (imported in `main.jsx`) rather than pulled from
+Google Fonts at runtime — same-origin, no third-party font CDN call, no CSP
+changes needed. Only the weight axis is included (no italics), and only the
+Latin subset actually downloads for English content; the other language
+subsets in the CSS just sit unused.
+
 ## Deploying
 
 `npm run build` outputs a static `dist/` folder that can be hosted anywhere
