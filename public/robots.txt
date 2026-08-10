@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://osnel97.github.io/osnel-portfolio/sitemap.xml

@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import siteData from '../../data/siteData';
 
+// Work leads the nav (and the page) rather than sitting third — Serial
+// Position Effect means the first item in a scanned list gets remembered
+// best, and for a hiring-decision portfolio that should be proof of work,
+// not the About blurb.
 const NAV_LINKS = [
+  { href: '#work', label: 'Work' },
   { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
-  { href: '#work', label: 'Work' },
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ];

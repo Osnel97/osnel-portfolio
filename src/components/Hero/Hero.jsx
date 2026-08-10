@@ -54,8 +54,8 @@ export default function Hero() {
       </div>
 
       <a
-        href="#about"
-        aria-label="Scroll to About section"
+        href="#work"
+        aria-label="Scroll to Work section"
         className="scroll-cue absolute bottom-8 left-1/2 hidden -translate-x-1/2 text-muted transition-colors hover:text-accent sm:block"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
