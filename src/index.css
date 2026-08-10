@@ -51,15 +51,17 @@ body {
   border-radius: 4px;
 }
 
-/* ---------- Scroll reveal (Reveal.jsx) ---------- */
+/* ---------- Scroll reveal (Reveal.jsx) ----------
+   Sections tilt up out of the page instead of just sliding/fading in —
+   the perspective + rotateX gives it a 3D "settling into place" feel. */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: perspective(1000px) translateY(28px) rotateX(-8deg);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 .reveal-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(1000px) translateY(0) rotateX(0deg);
 }
 
 /* ---------- Hero entrance ---------- */
@@ -85,19 +87,24 @@ body {
   animation-delay: 0.24s;
 }
 
-/* ---------- Avatar ambient glow ---------- */
+/* ---------- Avatar ambient glow ----------
+   Uses the standalone `scale` property (not `transform`) so this keyframe
+   animation and the JS-driven parallax translate (Hero.jsx/Avatar.jsx) can
+   both apply to the same element without one silently overriding the
+   other — animations always win a shared `transform` property otherwise. */
 @keyframes avatar-pulse {
   0%, 100% {
     opacity: 0.55;
-    transform: scale(1);
+    scale: 1;
   }
   50% {
     opacity: 0.9;
-    transform: scale(1.06);
+    scale: 1.06;
   }
 }
 .avatar-glow {
   animation: avatar-pulse 3.5s ease-in-out infinite;
+  transition: translate 0.2s ease-out;
 }
 
 /* ---------- Magnetic elements (Magnetic.jsx) ---------- */
@@ -194,6 +201,16 @@ body {
   animation: scroll-cue-bounce 2.2s ease-in-out infinite;
 }
 
+/* ---------- Logo 3D tilt (Header.jsx) ---------- */
+.logo-tilt {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.logo-tilt:hover,
+.logo-tilt:focus-visible {
+  transform: perspective(300px) rotateX(10deg) rotateY(-8deg);
+}
+
 /* ---------- Nav link underline ---------- */
 .nav-link {
   position: relative;
@@ -226,12 +243,18 @@ body {
   .avatar-glow,
   .scroll-cue,
   .btn-shine::after,
-  .nav-link::after {
+  .nav-link::after,
+  .shine-card,
+  .logo-tilt {
     animation: none !important;
     transition: none !important;
   }
   .reveal {
     opacity: 1;
+    transform: none;
+  }
+  .logo-tilt:hover,
+  .logo-tilt:focus-visible {
     transform: none;
   }
 }

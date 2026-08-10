@@ -30,7 +30,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/85 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.7)] backdrop-blur">
       <nav className="mx-auto flex max-w-[1080px] items-center justify-between px-5 py-4 sm:px-6">
-        <a href="#top" className="font-bold tracking-wide" onClick={() => setOpen(false)}>
+        <a href="#top" className="logo-tilt font-bold tracking-wide" onClick={() => setOpen(false)}>
           {siteData.name}
         </a>
 

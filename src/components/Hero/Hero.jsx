@@ -1,17 +1,45 @@
+import { useRef, useState } from 'react';
 import siteData from '../../data/siteData';
 import Avatar from './Avatar';
 import SocialLinks from '../SocialLinks/SocialLinks';
 import Magnetic from '../common/Magnetic';
 
 export default function Hero() {
+  const sectionRef = useRef(null);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+
+  // Tracks the cursor across the whole hero (not just the avatar) so the
+  // portrait feels like it's floating in a shared 3D space rather than
+  // reacting to a tiny local hover zone. Skipped under reduced-motion.
+  const handleMouseMove = (e) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setParallax({ x, y });
+  };
+
+  const handleMouseLeave = () => setParallax({ x: 0, y: 0 });
+
   return (
     <section
       id="top"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="relative flex min-h-[80svh] flex-col justify-center border-b border-border"
     >
       <div className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-8 px-5 sm:gap-10 sm:px-6">
         <div className="hero-in">
-          <Avatar src={siteData.photo} alt={siteData.name} initials={siteData.initials} />
+          <Avatar
+            src={siteData.photo}
+            alt={siteData.name}
+            initials={siteData.initials}
+            parallaxX={parallax.x}
+            parallaxY={parallax.y}
+          />
         </div>
 
         <div className="min-w-0 flex-1 sm:min-w-[280px]">
