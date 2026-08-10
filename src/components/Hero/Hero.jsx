@@ -1,156 +1,38 @@
-import { useLayoutEffect, useRef, useState } from 'react';
 import siteData from '../../data/siteData';
 import Avatar from './Avatar';
-import HeroCanvas from './HeroCanvas';
 import SocialLinks from '../SocialLinks/SocialLinks';
 import Magnetic from '../common/Magnetic';
-import { gsap } from '../../lib/gsap';
 
 export default function Hero() {
-  const sectionRef = useRef(null);
-  const contentRef = useRef(null);
-  const avatarWrapRef = useRef(null);
-  const eyebrowRef = useRef(null);
-  const nameWordsRef = useRef([]);
-  const roleRef = useRef(null);
-  const taglineRef = useRef(null);
-  const socialRef = useRef(null);
-  const ctaRef = useRef(null);
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
-
-  const nameWords = siteData.name.split(' ');
-
-  // Tracks the cursor across the whole hero (not just the avatar) so the
-  // portrait feels like it's floating in a shared 3D space rather than
-  // reacting to a tiny local hover zone. Skipped under reduced-motion.
-  const handleMouseMove = (e) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const el = sectionRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setParallax({ x, y });
-  };
-
-  const handleMouseLeave = () => setParallax({ x: 0, y: 0 });
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Opening title sequence — plays once on load, like the first few
-        // seconds of a video before the "camera" settles.
-        const introTargets = [
-          eyebrowRef.current,
-          roleRef.current,
-          taglineRef.current,
-          socialRef.current,
-          ctaRef.current,
-        ].filter(Boolean);
-
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        tl.set(introTargets, { autoAlpha: 0, y: 22 })
-          .set(avatarWrapRef.current, { autoAlpha: 0, scale: 0.85 })
-          .set(nameWordsRef.current.filter(Boolean), { yPercent: 110 });
-
-        tl.to(avatarWrapRef.current, { autoAlpha: 1, scale: 1, duration: 0.8 }, 0.05)
-          .to(eyebrowRef.current, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.2)
-          .to(nameWordsRef.current.filter(Boolean), { yPercent: 0, duration: 0.9, stagger: 0.08 }, 0.3)
-          .to(roleRef.current, { autoAlpha: 1, y: 0, duration: 0.6 }, 0.6)
-          .to(taglineRef.current, { autoAlpha: 1, y: 0, duration: 0.6 }, 0.72);
-        if (socialRef.current) tl.to(socialRef.current, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.82);
-        tl.to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.88);
-
-        // Cinematic exit — the hero pins in place for an extra beat of
-        // scroll while it pulls back and dissolves, like a camera racking
-        // focus and holding before cutting to the next shot, rather than
-        // just scrolling past like every other section.
-        gsap.to(contentRef.current, {
-          scale: 0.76,
-          y: -130,
-          autoAlpha: 0.05,
-          filter: 'blur(14px)',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: '+=100%',
-            scrub: 0.8,
-            pin: true,
-            pinSpacing: true,
-          },
-        });
-      });
-
-      mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(
-          [eyebrowRef.current, roleRef.current, taglineRef.current, socialRef.current, ctaRef.current, avatarWrapRef.current].filter(Boolean),
-          { autoAlpha: 1, y: 0, scale: 1 }
-        );
-        gsap.set(nameWordsRef.current.filter(Boolean), { yPercent: 0 });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <section
       id="top"
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="relative flex min-h-[80svh] flex-col justify-center border-b border-border"
     >
-      <HeroCanvas />
-      <div
-        ref={contentRef}
-        className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-8 px-5 sm:gap-10 sm:px-6"
-      >
-        <div ref={avatarWrapRef}>
-          <Avatar
-            src={siteData.photo}
-            alt={siteData.name}
-            initials={siteData.initials}
-            parallaxX={parallax.x}
-            parallaxY={parallax.y}
-          />
+      <div className="mx-auto flex max-w-[1080px] flex-wrap items-center gap-8 px-5 sm:gap-10 sm:px-6">
+        <div className="hero-in">
+          <Avatar src={siteData.photo} alt={siteData.name} initials={siteData.initials} />
         </div>
 
         <div className="min-w-0 flex-1 sm:min-w-[280px]">
-          <div ref={eyebrowRef} className="mb-4 text-sm uppercase tracking-[2px] text-accent">
+          <div className="hero-in mb-4 text-sm uppercase tracking-[2px] text-accent">
             Portfolio
           </div>
-          <h1 className="mb-2.5 text-[clamp(2.75rem,2vw+2.25rem,4.5rem)] font-extrabold leading-[1.05] tracking-tight">
-            {nameWords.map((word, i) => (
-              <span key={word + i} className="inline-block overflow-hidden align-bottom pb-1">
-                <span
-                  ref={(el) => (nameWordsRef.current[i] = el)}
-                  className="inline-block"
-                >
-                  {word}
-                  {i < nameWords.length - 1 ? ' ' : ''}
-                </span>
-              </span>
-            ))}
+          <h1 className="hero-in mb-2.5 text-[clamp(2.75rem,2vw+2.25rem,4.5rem)] font-extrabold leading-[1.05] tracking-tight">
+            {siteData.name}
           </h1>
-          <div ref={roleRef} className="mb-5 text-lg text-muted sm:text-xl">
+          <div className="hero-in mb-5 text-lg text-muted sm:text-xl">
             {siteData.title}
           </div>
-          <p ref={taglineRef} className="mb-6 max-w-[560px] text-muted">
-            {siteData.tagline}
-          </p>
+          <p className="hero-in mb-6 max-w-[560px] text-muted">{siteData.tagline}</p>
 
           {siteData.socialLinks?.length > 0 && (
-            <div ref={socialRef} className="mb-7">
+            <div className="hero-in mb-7">
               <SocialLinks links={siteData.socialLinks} />
             </div>
           )}
 
-          <div ref={ctaRef} className="flex flex-wrap gap-4">
+          <div className="hero-in-delay-1 flex flex-wrap gap-4">
             <Magnetic>
               <a
                 href="#contact"

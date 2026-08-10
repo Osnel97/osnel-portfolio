@@ -1,53 +1,38 @@
-import { useLayoutEffect, useRef } from 'react';
-import { gsap } from '../../lib/gsap';
+import { useEffect, useRef, useState } from 'react';
 
 /**
- * Ties each section's entrance to scroll position instead of a fixed-
- * duration, trigger-once animation — scroll down and it plays forward,
- * scroll back up and it reverses, exactly like scrubbing a video timeline.
- * `gsap.matchMedia` handles prefers-reduced-motion: under that preference
- * content is simply set to its final visible state, no animation at all.
+ * Fades + slides its children into view the first time they scroll into
+ * the viewport. Respects prefers-reduced-motion (handled globally in
+ * index.css) and only ever animates once per element.
  */
-export default function Reveal({ children, className = '' }) {
+export default function Reveal({ children, className = '', delay = 0 }) {
   const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
 
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.fromTo(
-          el,
-          { autoAlpha: 0, y: 130, scale: 0.92, rotateX: -18, transformPerspective: 1000, transformOrigin: '50% 100%' },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            rotateX: 0,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 95%',
-              end: 'top 40%',
-              scrub: 0.6,
-            },
-          }
-        );
-      });
-
-      mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(el, { autoAlpha: 1, y: 0, rotateX: 0 });
-      });
-    }, el);
-
-    return () => ctx.revert();
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div ref={ref} className={className}>
+    <div
+      ref={ref}
+      className={`reveal ${visible ? 'reveal-visible' : ''} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
       {children}
     </div>
   );

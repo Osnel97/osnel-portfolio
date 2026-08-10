@@ -51,30 +51,53 @@ body {
   border-radius: 4px;
 }
 
-/* Scroll reveals (Reveal.jsx) and the Hero entrance/exit are now driven
-   entirely by GSAP + ScrollTrigger (see src/lib/gsap.js, Reveal.jsx,
-   Hero.jsx) for real scroll-scrubbed motion instead of fixed-duration CSS
-   animations — GSAP sets the relevant inline styles directly, including
-   the prefers-reduced-motion fallback via gsap.matchMedia. */
+/* ---------- Scroll reveal (Reveal.jsx) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-/* ---------- Avatar ambient glow ----------
-   Uses the standalone `scale` property (not `transform`) so this keyframe
-   animation and the JS-driven parallax translate (Hero.jsx/Avatar.jsx) can
-   both apply to the same element without one silently overriding the
-   other — animations always win a shared `transform` property otherwise. */
+/* ---------- Hero entrance ---------- */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-in {
+  animation: hero-in 0.8s ease both;
+}
+.hero-in-delay-1 {
+  animation: hero-in 0.8s ease both;
+  animation-delay: 0.12s;
+}
+.hero-in-delay-2 {
+  animation: hero-in 0.8s ease both;
+  animation-delay: 0.24s;
+}
+
+/* ---------- Avatar ambient glow ---------- */
 @keyframes avatar-pulse {
   0%, 100% {
     opacity: 0.55;
-    scale: 1;
+    transform: scale(1);
   }
   50% {
     opacity: 0.9;
-    scale: 1.06;
+    transform: scale(1.06);
   }
 }
 .avatar-glow {
   animation: avatar-pulse 3.5s ease-in-out infinite;
-  transition: translate 0.2s ease-out;
 }
 
 /* ---------- Magnetic elements (Magnetic.jsx) ---------- */
@@ -171,16 +194,6 @@ body {
   animation: scroll-cue-bounce 2.2s ease-in-out infinite;
 }
 
-/* ---------- Logo 3D tilt (Header.jsx) ---------- */
-.logo-tilt {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-.logo-tilt:hover,
-.logo-tilt:focus-visible {
-  transform: perspective(300px) rotateX(10deg) rotateY(-8deg);
-}
-
 /* ---------- Nav link underline ---------- */
 .nav-link {
   position: relative;
@@ -205,18 +218,20 @@ body {
   html {
     scroll-behavior: auto;
   }
+  .reveal,
+  .hero-in,
+  .hero-in-delay-1,
+  .hero-in-delay-2,
   .magnetic,
   .avatar-glow,
   .scroll-cue,
   .btn-shine::after,
-  .nav-link::after,
-  .shine-card,
-  .logo-tilt {
+  .nav-link::after {
     animation: none !important;
     transition: none !important;
   }
-  .logo-tilt:hover,
-  .logo-tilt:focus-visible {
+  .reveal {
+    opacity: 1;
     transform: none;
   }
 }
