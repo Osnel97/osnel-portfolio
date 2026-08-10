@@ -87,12 +87,24 @@ const siteData = {
   testimonials: [],
 
   // platform: github, linkedin, twitter (or x), instagram, facebook, or email
-  // Replace the "#" placeholders with your real profile URLs whenever you're ready.
+  //
+  // Built from the "devsec_tz" handle before the accounts exist yet, so
+  // these will 404 until registered — fix as each one goes live:
+  // - Instagram and X allow underscores, so "devsec_tz" works as-is.
+  // - LinkedIn's custom URL slug does NOT allow underscores (letters,
+  //   numbers, hyphens only) — used "devsec-tz" below. Confirm it's
+  //   actually available when you register; adjust the url if not.
+  // - Facebook usernames also don't allow underscores (letters, numbers,
+  //   periods only) — used "devsec.tz" below as the closest equivalent;
+  //   same caveat, confirm on signup.
+  // - If a GitHub icon gets added later: GitHub usernames don't allow
+  //   underscores either (alphanumeric + hyphens), so it'd need
+  //   "devsec-tz" too.
   socialLinks: [
-    { platform: "linkedin", label: "LinkedIn", url: "#" },
-    { platform: "instagram", label: "Instagram", url: "#" },
-    { platform: "x", label: "X", url: "#" },
-    { platform: "facebook", label: "Facebook", url: "#" },
+    { platform: "linkedin", label: "LinkedIn", url: "https://linkedin.com/in/devsec-tz" },
+    { platform: "instagram", label: "Instagram", url: "https://instagram.com/devsec_tz" },
+    { platform: "x", label: "X", url: "https://x.com/devsec_tz" },
+    { platform: "facebook", label: "Facebook", url: "https://facebook.com/devsec.tz" },
   ],
 
   contact: {
