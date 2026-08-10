@@ -88,23 +88,16 @@ const siteData = {
 
   // platform: github, linkedin, twitter (or x), instagram, facebook, or email
   //
-  // Built from the "devsec_tz" handle before the accounts exist yet, so
-  // these will 404 until registered — fix as each one goes live:
-  // - Instagram and X allow underscores, so "devsec_tz" works as-is.
-  // - LinkedIn's custom URL slug does NOT allow underscores (letters,
-  //   numbers, hyphens only) — used "devsec-tz" below. Confirm it's
-  //   actually available when you register; adjust the url if not.
-  // - Facebook usernames also don't allow underscores (letters, numbers,
-  //   periods only) — used "devsec.tz" below as the closest equivalent;
-  //   same caveat, confirm on signup.
-  // - If a GitHub icon gets added later: GitHub usernames don't allow
-  //   underscores either (alphanumeric + hyphens), so it'd need
-  //   "devsec-tz" too.
+  // Same handle "devsectz" on every platform (no separator — hyphens,
+  // underscores, and periods each work on some platforms but not all,
+  // so plain alphanumeric is the only string valid everywhere). Accounts
+  // don't exist yet, so these will 404 until registered — confirm the
+  // handle is actually available on each platform at signup.
   socialLinks: [
-    { platform: "linkedin", label: "LinkedIn", url: "https://linkedin.com/in/devsec-tz" },
-    { platform: "instagram", label: "Instagram", url: "https://instagram.com/devsec_tz" },
-    { platform: "x", label: "X", url: "https://x.com/devsec_tz" },
-    { platform: "facebook", label: "Facebook", url: "https://facebook.com/devsec.tz" },
+    { platform: "linkedin", label: "LinkedIn", url: "https://linkedin.com/in/devsectz" },
+    { platform: "instagram", label: "Instagram", url: "https://instagram.com/devsectz" },
+    { platform: "x", label: "X", url: "https://x.com/devsectz" },
+    { platform: "facebook", label: "Facebook", url: "https://facebook.com/devsectz" },
   ],
 
   contact: {
