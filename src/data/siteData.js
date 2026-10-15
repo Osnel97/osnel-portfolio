@@ -39,9 +39,9 @@ const siteData = {
   // Add a new project by copying one of the {} blocks below.
   projects: [
     {
-      name: "Logistics Management System",
+      name: "SwiftParcel",
       description:
-        "A logistics platform that lets a company track and manage shipments end to end — with a dashboard for staff, native iOS/Android apps, and a self-service portal so customers can check their own deliveries without calling support.",
+        "SwiftParcel is a logistics platform that lets a company track and manage shipments end to end — with a dashboard for staff, native iOS/Android apps, and a self-service portal so customers can check their own deliveries without calling support.",
       highlights: [
         "Built as independent services rather than one large application, so any part can be updated or scaled without affecting the rest of the system.",
         "Services stay in sync in real time through event-driven messaging (RabbitMQ) and internal APIs — no manual syncing, no bottlenecks.",
