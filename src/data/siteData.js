@@ -28,7 +28,7 @@ const siteData = {
   ],
 
   skills: [
-    { category: "Backend", items: ["Spring Boot", "Laravel", "NestJS", "REST API", "Microservices"] },
+    { category: "Backend", items: ["Spring Boot", "Laravel", "NestJS", "REST API", "Microservices", "WhatsApp Bot"] },
     { category: "Databases", items: ["PostgreSQL", "Oracle DB", "Redis"] },
     { category: "Infrastructure & DevOps", items: ["Docker", "Kubernetes", "AWS", "Cloud Infrastructure", "Linux", "RabbitMQ"] },
     { category: "Observability", items: ["Grafana", "Loki", "Promtail", "Elasticsearch", "Kibana", "APM"] },
