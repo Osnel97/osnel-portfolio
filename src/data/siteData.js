@@ -49,11 +49,12 @@ const siteData = {
         "Customers can track and manage their own shipments directly, through the website or the app, without needing to call in.",
         "Live shipment tracking on a real map (OpenStreetMap), so people can see exactly where their delivery is.",
         "Automated email and SMS updates keep customers informed without anyone lifting a finger.",
+        "A WhatsApp bot lets customers check on their shipments right inside the chat app they already use every day.",
         "Every service is monitored around the clock (Grafana, Loki, Promtail), so issues get caught before customers notice them.",
         "Security-tested end to end — frontend, API, backend, database, and server — using real attack techniques (OWASP ZAP), not just a one-time review.",
       ],
       stack: [
-        "NestJS", "React.js", "Tailwind CSS", "Flutter", "iOS", "Android", "REST API",
+        "NestJS", "React.js", "Tailwind CSS", "Flutter", "iOS", "Android", "REST API", "WhatsApp Bot",
         "RabbitMQ", "Redis", "PostgreSQL", "Docker", "Kubernetes",
         "Linux", "OpenStreetMap", "Grafana", "Loki", "Promtail", "OWASP ZAP",
       ],
